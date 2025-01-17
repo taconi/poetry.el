@@ -885,7 +885,7 @@ If OPT is non-nil, set an optional dep."
               (when file
                 (poetry-with-current-file file
                    (goto-char (point-min))
-                   (when (re-search-forward "^\\[tool\\.poetry\\]" nil t)
+                   (when (re-search-forward "^\\[\\(tool\\.poetry\\|project\\)\\]" nil t)
                      (when (re-search-forward "^name = \"\\(.*\\)\"$" nil t)
                        (substring-no-properties (match-string 1))))))))))
 
@@ -898,7 +898,7 @@ If OPT is non-nil, set an optional dep."
                    (with-temp-buffer
                      (insert-file-contents-literally (concat (file-name-as-directory root) "pyproject.toml"))
                      (buffer-string)))
-                  (_ (string-match "^\\[tool\\.poetry\\]" pyproject-contents)))
+                  (_ (string-match "^\\[\\(tool\\.poetry\\|project\\)\\]" pyproject-contents)))
         (setq poetry-project-root root))))
 
 (defun poetry-get-virtualenv ()
